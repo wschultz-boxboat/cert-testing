@@ -34,3 +34,8 @@ jobs:
         with:
           creds: '{"clientId":"${{ env.APP_ID }}","clientSecret":"./${{ env.CERTIFICATE_FILE_NAME }}","subscriptionId":"default","tenantId":"${{ env.TENANT_ID }}"}'
           allow-no-subscriptions: true
+
+      - name: Check Login Status
+        shell: bash
+        run: |
+          az account show
