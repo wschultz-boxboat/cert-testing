@@ -32,5 +32,5 @@ jobs:
       - name: Login to Azure
         uses: Azure/login@v1
         with:
-          creds: '{"clientId": "${{ env.APP_ID }},"clientSecret": "./${{ env.CERTIFICATE_FILE_NAME }}","tenantId": "${{ env.TENANT_ID }}","subscriptionId": "default"}'
+          creds: '{"clientId":"${{ env.APP_ID }}","clientSecret":"$PWD/${{ env.CERTIFICATE_FILE_NAME }}","subscriptionId":"default","tenantId":"${{ env.TENANT_ID }}"}'
           allow-no-subscriptions: true
