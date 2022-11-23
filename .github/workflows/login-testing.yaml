@@ -4,16 +4,15 @@ on:
   workflow_dispatch:
 
 env:
-  CLIENT_ID: ""
-  TENANT_ID: ""
-  SUBSCRIPTION_ID: ""
+  TENANT_ID: "c5614891-414a-4db9-8504-3fab2dfb9ff3"
+  APP_ID: "d33ef1c1-0b86-47db-a875-da255a93d183"
+  SERVICE_PRINCIPAL_NAME: "azure-cli-2022-11-23-17-35-03"
+  CERTIFICATE_FILE_NAME: "spn.pem"
 
 jobs:
   build:
 
-    runs-on: [self-hosted]
-    permissions:
-      contents: read
+    runs-on: [ubuntu-latest]
 
     steps:
       - name: Checkout repository
@@ -22,4 +21,4 @@ jobs:
       - name: Login to Azure
         uses: Azure/login@v1
         with:
-          creds: '{"clientId":"${{ env.CLIENT_ID }}","clientSecret":"${{ secrets.WORKFLOW_SPN_SECRET }}","subscriptionId":"${{ env.SUBSCRIPTION_ID }}","tenantId":"${{ env.TENANT_ID }}"}'
+          creds: '{"appId":"${{ env.APP_ID }}","displayName":"${{ env.SERVICE_PRINCIPAL_NAME }}","fileWithCertAndPrivateKey":"./${{ env.CERTIFICATE_FILE_NAME }}","password": null,"tenantId":"${{ env.TENANT_ID }}"}'
