@@ -1,0 +1,25 @@
+name: Login Testing
+
+on:
+  workflow_dispatch:
+
+env:
+  CLIENT_ID: ""
+  TENANT_ID: ""
+  SUBSCRIPTION_ID: ""
+
+jobs:
+  build:
+
+    runs-on: [self-hosted]
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Login to Azure
+        uses: Azure/login@v1
+        with:
+          creds: '{"clientId":"${{ env.CLIENT_ID }}","clientSecret":"${{ secrets.WORKFLOW_SPN_SECRET }}","subscriptionId":"${{ env.SUBSCRIPTION_ID }}","tenantId":"${{ env.TENANT_ID }}"}'
