@@ -23,6 +23,12 @@ jobs:
         run: |
           echo "${{ secrets.SERVICE_PRINCIPAL_CERTIFICATE }}" > ./${{ env.CERTIFICATE_FILE_NAME }}
           
+      - name: Check for certificate file
+        shell: bash
+        run: |
+          ls -la
+          pwd
+          
       - name: Login to Azure
         uses: Azure/login@v1
         with:
