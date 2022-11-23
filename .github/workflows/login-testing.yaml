@@ -23,8 +23,13 @@ jobs:
         run: |
           echo "${{ secrets.SERVICE_PRINCIPAL_CERTIFICATE }}" > ./${{ env.CERTIFICATE_FILE_NAME }}
 
-      - name: Login to Azure
-        uses: Azure/login@v1
-        with:
-          creds: '{"appId":"${{ env.APP_ID }}","displayName":"${{ env.SERVICE_PRINCIPAL_NAME }}","fileWithCertAndPrivateKey":"./${{ env.CERTIFICATE_FILE_NAME }}","password": null,"tenantId":"${{ env.TENANT_ID }}"}'
-          allow-no-subscriptions: true
+      - name: Login to Azure Using Bash
+        shell: bash
+        run: |
+          az login --service-principal -u "${{ env.APP_ID }}" -p="./${{ env.CERTIFICATE_FILE_NAME }}" --tenant "${{ env.TENANT_ID }}" --allow-no-subscriptions
+
+#       - name: Login to Azure
+#         uses: Azure/login@v1
+#         with:
+#           creds: '{"appId":"${{ env.APP_ID }}","displayName":"${{ env.SERVICE_PRINCIPAL_NAME }}","fileWithCertAndPrivateKey":"./${{ env.CERTIFICATE_FILE_NAME }}","password": null,"tenantId":"${{ env.TENANT_ID }}"}'
+#           allow-no-subscriptions: true
